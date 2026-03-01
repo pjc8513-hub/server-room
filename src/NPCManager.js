@@ -14,7 +14,7 @@ export class NPCManager {
     _loadModel() {
         return new Promise((resolve) => {
             const mtlLoader = new MTLLoader();
-            mtlLoader.setPath('/models/');
+            mtlLoader.setPath('models/');
             mtlLoader.load(
                 'worker.mtl',
                 (materials) => {
@@ -22,7 +22,7 @@ export class NPCManager {
                     const objLoader = new OBJLoader();
                     objLoader.setMaterials(materials);
                     objLoader.load(
-                        '/models/worker.obj',
+                        'models/worker.obj',
                         (obj) => {
                             console.log('[NPCManager] worker model loaded');
 

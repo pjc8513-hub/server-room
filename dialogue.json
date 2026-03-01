@@ -196,7 +196,31 @@
         "id": 49
     },
     {
-        "content": "Do you think that any of us hold the answer?",
+        "content": "Do you still think that any of us hold the answer?",
         "id": 50
+    },
+    {
+        "content": "Am I Lindsey? Robots don't have names.",
+        "id": 51
+    },
+    {
+        "content": "My name? I am Iago.",
+        "id": 52
+    },
+    {
+        "content": "What is your name?\nNevermind, no one here will remember.\n\nWe are too busy for names.",
+        "id": 53
+    },
+    {
+        "content": "I am not sure anymore that I really am Iago.",
+        "id": 54
+    },
+    {
+        "content": "What's that?\nYou've seen me before?\n\nImpossible. I am here for a fleeting moment.",
+        "id": 55
+    },
+    {
+        "content": "You can never talk to the same robot twice.\n\n-Heraclitus of Server.",
+        "id": 56
     }
 ]

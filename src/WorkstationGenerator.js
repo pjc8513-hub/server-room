@@ -16,7 +16,7 @@ export class WorkstationGenerator {
     _loadModel() {
         return new Promise((resolve) => {
             const mtlLoader = new MTLLoader();
-            mtlLoader.setPath('/models/');
+            mtlLoader.setPath('models/');
             mtlLoader.load(
                 'monolith.mtl',
                 (materials) => {
@@ -25,7 +25,7 @@ export class WorkstationGenerator {
                     const objLoader = new OBJLoader();
                     objLoader.setMaterials(materials);
                     objLoader.load(
-                        '/models/monolith.obj',
+                        'models/monolith.obj',
                         (obj) => {
                             console.log('[WorkstationGenerator] monolith.obj loaded successfully');
 
@@ -62,7 +62,7 @@ export class WorkstationGenerator {
                     console.warn('[WorkstationGenerator] MTL not found, loading OBJ with default material.', err);
                     const objLoader = new OBJLoader();
                     objLoader.load(
-                        '/models/monolith.obj',
+                        'models/monolith.obj',
                         (obj) => {
                             const box = new THREE.Box3().setFromObject(obj);
                             const center = new THREE.Vector3();
