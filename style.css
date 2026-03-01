@@ -1,0 +1,108 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#container {
+    width: 100vw;
+    height: 100vh;
+}
+
+canvas {
+    display: block;
+}
+
+#coords {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 14px;
+    pointer-events: none;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+#crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.8;
+}
+
+#reading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 0.3s ease;
+}
+
+#reading-overlay.hidden {
+    display: none;
+    opacity: 0;
+}
+
+#reading-content {
+    max-width: 600px;
+    max-height: 70vh;
+    padding: 40px;
+    background: #f7f3e9; /* Aged paper/screen color */
+    border-radius: 8px;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.1), 0 10px 30px rgba(0,0,0,0.5);
+    font-family: 'Georgia', serif;
+    font-size: 22px;
+    line-height: 1.6;
+    color: #222; /* High contrast but soft */
+    margin-bottom: 40px;
+    white-space: pre-wrap;
+    text-align: justify;
+    overflow-y: auto;
+    border: 1px solid #dcd9ce;
+}
+
+#reading-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+#reading-content::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05);
+}
+
+#reading-content::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+#close-reading {
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid #88ccff;
+    color: #88ccff;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+#close-reading:hover {
+    background: #88ccff;
+    color: #000;
+}
