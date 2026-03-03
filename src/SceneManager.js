@@ -18,7 +18,8 @@ export class SceneManager {
         this.scene.background = new THREE.Color(0xe0f0ff);
         this.scene.fog = new THREE.FogExp2(0xe0f0ff, 0.05);
 
-        this.scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+        this.ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        this.scene.add(this.ambientLight);
         const dirLight = new THREE.DirectionalLight(0x88ccff, 1);
         dirLight.position.set(1, 10, 1);
         this.scene.add(dirLight);
@@ -42,6 +43,23 @@ export class SceneManager {
         this.contentDiv = document.getElementById('reading-content');
         this.closeBtn = document.getElementById('close-reading');
         this.coordsDiv = document.getElementById('coords');
+
+        // --- Psychological Fog State ---
+        this.fogStep = 0;
+        this.maxFogSteps = 8;
+        this.isFogReceding = false;
+
+        this.baseFogColor = new THREE.Color(0xe0f0ff);
+        this.targetFogColor = new THREE.Color(0xe0f0ff);
+        this.menacingFogColor = new THREE.Color(0x220505);
+
+        this.baseFogDensity = 0.05;
+        this.targetFogDensity = 0.05;
+        this.maxFogDensity = 0.35;
+
+        this.baseAmbientIntensity = 0.5;
+        this.targetAmbientIntensity = 0.5;
+        this.minAmbientIntensity = 0.1;
 
         this._setupEnvironment();
 
@@ -129,9 +147,7 @@ export class SceneManager {
     }
 
     stopReading() {
-        // Check if we were reading from an NPC; if so, despawn it
-        const currentInteracted = this.lastInteracted; // we need to track what we were reading
-
+        const currentInteracted = this.lastInteracted;
         this.reading = false;
         if (this.playerController) this.playerController.enabled = true;
         this.overlay.classList.add('hidden');
@@ -140,7 +156,9 @@ export class SceneManager {
         if (currentInteracted && currentInteracted.userData.isNPC) {
             this.npcManager.despawnWorker();
         } else if (currentInteracted && !this.npcManager.getActiveWorker()) {
-            // Spawn NPC somewhere nearby after reading a workstation
+            // Update psychological state ONLY when reading a workstation (non-NPC)
+            this._updatePsychologicalState();
+
             const playerPos = this.playerController.getPosition();
             const angle = Math.random() * Math.PI * 2;
             const dist = 6 + Math.random() * 4;
@@ -152,6 +170,28 @@ export class SceneManager {
             this.npcManager.spawnWorker(spawnPos);
         }
         this.lastInteracted = null;
+    }
+
+    _updatePsychologicalState() {
+        if (this.isFogReceding) {
+            this.fogStep--;
+            if (this.fogStep <= 0) {
+                this.fogStep = 0;
+                this.isFogReceding = false;
+            }
+        } else {
+            this.fogStep++;
+            if (this.fogStep >= this.maxFogSteps) {
+                this.isFogReceding = true;
+            }
+        }
+
+        const t = this.fogStep / this.maxFogSteps;
+
+        // Calculate targets
+        this.targetFogDensity = this.baseFogDensity + (this.maxFogDensity - this.baseFogDensity) * t;
+        this.targetAmbientIntensity = this.baseAmbientIntensity + (this.minAmbientIntensity - this.baseAmbientIntensity) * t;
+        this.targetFogColor.copy(this.baseFogColor).lerp(this.menacingFogColor, t);
     }
 
     onWindowResize() {
@@ -179,6 +219,15 @@ export class SceneManager {
             if (dist > 15) {
                 this.npcManager.despawnWorker();
             }
+        }
+
+        // Smoothly interpolate fog and lighting
+        this.scene.fog.density += (this.targetFogDensity - this.scene.fog.density) * 0.05;
+        this.scene.fog.color.lerp(this.targetFogColor, 0.05);
+        this.scene.background.lerp(this.targetFogColor, 0.05);
+
+        if (this.ambientLight) {
+            this.ambientLight.intensity += (this.targetAmbientIntensity - this.ambientLight.intensity) * 0.05;
         }
 
         this.renderer.render(this.scene, this.camera);
