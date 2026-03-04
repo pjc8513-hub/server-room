@@ -272,7 +272,11 @@
         "id": 69
     },
     {
-        "content": "",
+        "content": "Excuse me, you are in my shadow.",
         "id": 70
+    },
+    {
+        "content": "Am I a fragment of you?",
+        "id": 71
     }
 ]
