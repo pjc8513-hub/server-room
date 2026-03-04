@@ -5,6 +5,7 @@ export class GameLogic {
         this.seenPages = new Set();
         this.narrativePositions = new Map(); // key "x,z" to page index
         this.dialogue = [];
+        this.oracleDialogue = [];
     }
 
     async loadPages() {
@@ -24,6 +25,15 @@ export class GameLogic {
         } catch (error) {
             console.error('Failed to load dialogue.json:', error);
             this.dialogue = [{ content: "...", id: 0 }];
+        }
+
+        try {
+            const response = await fetch('./oracle.json');
+            this.oracleDialogue = await response.json();
+            console.log(`Loaded ${this.oracleDialogue.length} oracle dialogue items.`);
+        } catch (error) {
+            console.error('Failed to load oracle.json:', error);
+            this.oracleDialogue = [{ content: "...", id: 0 }];
         }
     }
 
@@ -61,5 +71,14 @@ export class GameLogic {
         if (this.dialogue.length === 0) return { content: "...", id: 0 };
         const index = Math.floor(Math.random() * this.dialogue.length);
         return this.dialogue[index];
+    }
+
+    /**
+     * Returns a random dialogue entry from oracle.json
+     */
+    getRandomOracleDialogue() {
+        if (this.oracleDialogue.length === 0) return { content: "...", id: 0 };
+        const index = Math.floor(Math.random() * this.oracleDialogue.length);
+        return this.oracleDialogue[index];
     }
 }

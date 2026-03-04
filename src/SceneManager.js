@@ -3,7 +3,6 @@ import { WorkstationGenerator } from './WorkstationGenerator.js';
 import { NPCManager } from './NPCManager.js';
 import { PathIlluminator } from './PathIlluminator.js';
 import { TextGenerator } from './TextGenerator.js';
-import { AudioManager } from './AudioManager.js';
 
 export class SceneManager {
     constructor(container) {
@@ -31,7 +30,6 @@ export class SceneManager {
         this.npcManager = new NPCManager(this.scene);
         this.pathIlluminator = new PathIlluminator(this.scene);
         this.textGenerator = new TextGenerator();
-        this.audioManager = new AudioManager();
 
         this.raycaster = new THREE.Raycaster();
         this.mouse = new THREE.Vector2();
@@ -94,8 +92,8 @@ export class SceneManager {
         this.raycaster.setFromCamera(this.mouse, this.camera);
 
         const workstations = this.workstationGenerator.getWorkstationList();
-        const activeWorker = this.npcManager.getActiveWorker();
-        const interactables = activeWorker ? [...workstations, activeWorker] : workstations;
+        const activeNPCs = this.npcManager.getActiveNPCs();
+        const interactables = [...workstations, ...activeNPCs];
 
         // intersectObjects with recursive:true catches meshes inside OBJ groups
         const intersects = this.raycaster.intersectObjects(interactables, true);
@@ -125,8 +123,13 @@ export class SceneManager {
         // Resolve text on first click; reuse on subsequent clicks
         if (workstation.userData.resolvedText === null) {
             if (workstation.userData.isNPC) {
-                const dialogue = this.gameLogic.getRandomDialogue();
-                workstation.userData.resolvedText = dialogue.content;
+                if (workstation.userData.npcType === 'oracle') {
+                    const dialogue = this.gameLogic.getRandomOracleDialogue();
+                    workstation.userData.resolvedText = dialogue.content;
+                } else {
+                    const dialogue = this.gameLogic.getRandomDialogue();
+                    workstation.userData.resolvedText = dialogue.content;
+                }
             } else {
                 const useNovel = Math.random() < 0.5 && this.gameLogic && this.gameLogic.pages.length > 0;
                 if (useNovel) {
@@ -140,10 +143,6 @@ export class SceneManager {
 
         this.contentDiv.innerText = workstation.userData.resolvedText;
 
-        // Play atmospheric audio occasionally
-        if (!workstation.userData.isNPC) {
-            this.audioManager.playAtmosphericAudio();
-        }
     }
 
     stopReading() {
@@ -154,8 +153,8 @@ export class SceneManager {
         this.canvas.requestPointerLock();
 
         if (currentInteracted && currentInteracted.userData.isNPC) {
-            this.npcManager.despawnWorker();
-        } else if (currentInteracted && !this.npcManager.getActiveWorker()) {
+            this.npcManager.despawnNPCs();
+        } else if (currentInteracted && this.npcManager.getActiveNPCs().length === 0) {
             // Update psychological state ONLY when reading a workstation (non-NPC)
             this._updatePsychologicalState();
 
@@ -167,7 +166,7 @@ export class SceneManager {
                 0,
                 playerPos.z + Math.sin(angle) * dist
             );
-            this.npcManager.spawnWorker(spawnPos);
+            this.npcManager.spawnNPCs(spawnPos);
         }
         this.lastInteracted = null;
     }
@@ -213,11 +212,15 @@ export class SceneManager {
         this.workstationGenerator.update(playerPosition, 40);
 
         // Check active NPC distance
-        const worker = this.npcManager.getActiveWorker();
-        if (worker) {
-            const dist = worker.position.distanceTo(playerPosition);
-            if (dist > 15) {
-                this.npcManager.despawnWorker();
+        const activeNPCs = this.npcManager.getActiveNPCs();
+        if (activeNPCs.length > 0) {
+            // If any NPC is too far, despawn all
+            const worker = activeNPCs.find(npc => npc.userData.npcType === 'worker');
+            if (worker) {
+                const dist = worker.position.distanceTo(playerPosition);
+                if (dist > 15) {
+                    this.npcManager.despawnNPCs();
+                }
             }
         }
 

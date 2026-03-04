@@ -1,0 +1,28 @@
+# LLM Oracle Entity Materials
+
+newmtl oracle_core
+Ka 0.05 0.10 0.20
+Kd 0.10 0.25 0.55
+Ks 0.30 0.50 0.80
+Ke 0.05 0.20 0.60
+Ns 80.0
+d 1.0
+illum 2
+
+newmtl oracle_ring
+Ka 0.00 0.15 0.30
+Kd 0.15 0.45 0.85
+Ks 0.50 0.70 1.00
+Ke 0.10 0.35 0.80
+Ns 120.0
+d 0.85
+illum 2
+
+newmtl oracle_ring_dim
+Ka 0.00 0.10 0.22
+Kd 0.10 0.30 0.65
+Ks 0.30 0.50 0.80
+Ke 0.05 0.20 0.55
+Ns 100.0
+d 0.70
+illum 2
