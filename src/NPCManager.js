@@ -66,7 +66,7 @@ export class NPCManager {
                         'models/llm_entity.obj',
                         (obj) => {
                             console.log('[NPCManager] oracle model loaded');
-                            const baseOracle = this._processModel(obj, 0.55);
+                            const baseOracle = this._processModel(obj, 0.55); //originally 55
 
                             // Create the complex Oracle structure with shells
                             const oracleGroup = new THREE.Group();
@@ -107,7 +107,7 @@ export class NPCManager {
                                 side: THREE.BackSide,
                             });
                             oracleGroup.add(new THREE.Mesh(glowGeo, glowMat));
-
+                            oracleGroup.scale.setScalar(0.5);
                             this.oracleTemplate = oracleGroup;
                             resolve();
                         },
