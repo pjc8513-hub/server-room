@@ -102,5 +102,17 @@
     {
         "content": "2. Recoverable meaning. Gibberish.\nInterpretation is projection only. Different readers cannot converge on meaning. No scholarly consensus possible. Joyce: Meaning is difficult but recoverable. Multiple meanings coexist. Readers and scholars independently arrive at similar insights. If people can argue about what something means, it’s not gibberish. Gibberish\nDoes not model how humans think or feel.\nNo psychological realism.\n\nFragmentation, repetition, obsession, association. Paradoxically, Joyce is more constrained than conventional writers. Gibberish has no constraints.\nJoyce has too many.\nDifficulty that repels forever is gibberish.\nDifficulty that slowly yields is art.Gibberish collapses under scrutiny. Joyce expands under scrutiny.\nIf deeper attention gives you less to work with, it’s nonsense.\nIf deeper attention gives you more, it’s complexity.\n\nDoes meaning exist before interpretation, or is it created through interaction?",
         "id": 26
+    },
+    {
+        "content": "const useNovel = Math.random() < 0.90 && this.gameLogic && this.gameLogic.pages.length > 0;",
+        "id": 27
+    },
+    {
+        "content": "_updatePsychologicalState() {\nif (this.isFogReceding) {\nthis.fogStep--;\nif (this.fogStep <= 0) {\nthis.fogStep = 0;\n\nthis.isFogReceding = false;\n}\n} else {\nthis.fogStep++;\n\nif (this.fogStep >= this.maxFogSteps) {\nthis.isFogReceding = true;\n}\n}\n\nconst t = this.fogStep / this.maxFogSteps;\n\n// Calculate targets\nthis.targetFogDensity = this.baseFogDensity + (this.maxFogDensity - this.baseFogDensity) * t;\nthis.targetAmbientIntensity = this.baseAmbientIntensity + (this.minAmbientIntensity - this.baseAmbientIntensity) * t;\nthis.targetFogColor.copy(this.baseFogColor).lerp(this.menacingFogColor, t);\n}.",
+        "id": 28
+    },
+    {
+        "content": "",
+        "id": 29
     }
 ]

@@ -131,17 +131,24 @@ export class SceneManager {
                     workstation.userData.resolvedText = dialogue.content;
                 }
             } else {
-                const useNovel = Math.random() < 0.5 && this.gameLogic && this.gameLogic.pages.length > 0;
+                const useNovel = Math.random() < 0.90 && this.gameLogic && this.gameLogic.pages.length > 0;
                 if (useNovel) {
                     const page = this.gameLogic.getRandomPage();
                     workstation.userData.resolvedText = page.content;
+                    workstation.userData.isNovel = true;
                 } else {
                     workstation.userData.resolvedText = this.textGenerator.generateNoise(40);
+                    workstation.userData.isNovel = false;
                 }
             }
         }
 
-        this.contentDiv.innerText = workstation.userData.resolvedText;
+        let displayText = workstation.userData.resolvedText;
+        if (workstation.userData.isNovel) {
+            displayText = this._applyRedaction(displayText);
+        }
+
+        this.contentDiv.innerText = displayText;
 
     }
 
@@ -191,6 +198,25 @@ export class SceneManager {
         this.targetFogDensity = this.baseFogDensity + (this.maxFogDensity - this.baseFogDensity) * t;
         this.targetAmbientIntensity = this.baseAmbientIntensity + (this.minAmbientIntensity - this.baseAmbientIntensity) * t;
         this.targetFogColor.copy(this.baseFogColor).lerp(this.menacingFogColor, t);
+    }
+
+    _applyRedaction(text) {
+        const intensity = this.fogStep / this.maxFogSteps;
+        if (intensity === 0) return text;
+
+        const words = text.split(/(\s+)/);
+        const redactedWords = words.map(word => {
+            // Only redact actual "word" parts (not whitespace)
+            if (/\s+/.test(word)) return word;
+
+            // Randomly decide to redact based on intensity
+            if (Math.random() < intensity) {
+                return '█'.repeat(word.length);
+            }
+            return word;
+        });
+
+        return redactedWords.join('');
     }
 
     onWindowResize() {
