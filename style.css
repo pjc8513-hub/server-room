@@ -64,13 +64,15 @@ canvas {
     max-width: 600px;
     max-height: 70vh;
     padding: 40px;
-    background: #f7f3e9; /* Aged paper/screen color */
+    background: #f7f3e9;
+    /* Aged paper/screen color */
     border-radius: 8px;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.1), 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1), 0 10px 30px rgba(0, 0, 0, 0.5);
     font-family: 'Georgia', serif;
     font-size: 22px;
     line-height: 1.6;
-    color: #222; /* High contrast but soft */
+    color: #222;
+    /* High contrast but soft */
     margin-bottom: 40px;
     white-space: pre-wrap;
     text-align: justify;
@@ -83,7 +85,7 @@ canvas {
 }
 
 #reading-content::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.05);
+    background: rgba(0, 0, 0, 0.05);
 }
 
 #reading-content::-webkit-scrollbar-thumb {
@@ -105,4 +107,79 @@ canvas {
 #close-reading:hover {
     background: #88ccff;
     color: #000;
+}
+
+/* --- Compass UI --- */
+#compass-container {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(136, 204, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 60;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+#compass-marker {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: #88ccff;
+    transform: translateX(-50%);
+    z-index: 65;
+    box-shadow: 0 0 10px #88ccff;
+}
+
+#compass-tape {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 3600px;
+    /* 10px per degree */
+    display: flex;
+    align-items: center;
+    transition: none;
+    /* Smooth but immediate frame updates */
+}
+
+.compass-degree {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    transform: translateX(-50%);
+}
+
+.compass-degree.major {
+    color: #88ccff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.compass-degree span {
+    margin-bottom: 2px;
+}
+
+.compass-tick {
+    width: 1px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.compass-tick.major {
+    height: 12px;
+    background: #88ccff;
 }

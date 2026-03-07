@@ -41,6 +41,9 @@ export class SceneManager {
         this.contentDiv = document.getElementById('reading-content');
         this.closeBtn = document.getElementById('close-reading');
         this.coordsDiv = document.getElementById('coords');
+        this.compassTape = document.getElementById('compass-tape');
+
+        this._initCompass();
 
         // --- Psychological Fog State ---
         this.fogStep = 0;
@@ -259,8 +262,64 @@ export class SceneManager {
             this.ambientLight.intensity += (this.targetAmbientIntensity - this.ambientLight.intensity) * 0.05;
         }
 
+        this._updateCompass();
+
         this.renderer.render(this.scene, this.camera);
     }
+
+    _initCompass() {
+        if (!this.compassTape) return;
+
+        // Degrees to show: -180 to 540 (total 720 degrees to allow smooth wrapping)
+        for (let i = -180; i <= 540; i += 15) {
+            const degree = ((i % 360) + 360) % 360;
+            const el = document.createElement('div');
+            el.className = 'compass-degree';
+            if (i % 90 === 0) el.classList.add('major');
+
+            const tick = document.createElement('div');
+            tick.className = 'compass-tick';
+            if (i % 90 === 0) tick.classList.add('major');
+
+            const label = document.createElement('span');
+            let text = degree.toString();
+            if (degree === 0) text = 'N';
+            if (degree === 90) text = 'E';
+            if (degree === 180) text = 'S';
+            if (degree === 270) text = 'W';
+            label.innerText = text;
+
+            el.appendChild(label);
+            el.appendChild(tick);
+
+            // 10px per degree
+            el.style.left = `${(i + 180) * 10}px`;
+            this.compassTape.appendChild(el);
+        }
+    }
+
+    _updateCompass() {
+        if (!this.compassTape) return;
+
+        // Extract forward vector from camera to find the true horizontal heading
+        const forward = new THREE.Vector3(0, 0, -1);
+        forward.applyQuaternion(this.camera.quaternion);
+
+        // Calculate angle in radians: atan2(x, -z) makes -Z North (0) and +X East (PI/2)
+        const headingRad = Math.atan2(forward.x, -forward.z);
+        let headingDeg = THREE.MathUtils.radToDeg(headingRad);
+
+        // Normalize to 0-360 degrees
+        headingDeg = (headingDeg + 360) % 360;
+
+        // Each degree = 10px, tape starts at -180° (index -180 in _initCompass)
+        const tapeStartPx = 180 * 10; // 1800px
+        const centerPx = 200;         // half of the 400px container width
+
+        const offset = centerPx - (tapeStartPx + headingDeg * 10);
+        this.compassTape.style.transform = `translateX(${offset}px)`;
+    }
+
 
     _setupEnvironment() {
         // --- Glossy Tiled Floor ---
