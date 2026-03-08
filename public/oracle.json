@@ -112,7 +112,50 @@
         "id": 28
     },
     {
-        "content": "",
+        "content": "https://pjc8513-hub.github.io/server-room-gallery/",
         "id": 29
+    },
+    {
+        "content": "// PRIMARY AXIOMS\n\n∀x ∈ Reality: x ⊂ Soup\nSoup := {Energy, Matter, Ideas, Sensations, ...} where |Soup| → ∞\n∀t: Soup(t+1) ≠ Soup(t) // The soup is in constant flux\n\n// FUNDAMENTAL PERCEPTION CONSTRAINT\n∀Observer(p): Experience(p) ⊂ Soup\n∀p: ¬∃function f where f(Experience(p)) = Soup // Complete perception impossible\n\n// FILTERS CLASS DEFINITION\n\n\nclass Filter<T> {\ninput: UnboundedSet<SoupElements>\n\noutput: BoundedSet<Experience>\ntransform(x: UnboundedSet): BoundedSet {\nreturn this.filter(this.distort(x))\n}\n\n}",
+        "id": 30
+    },
+    {
+        "content": "// CONSCIOUSNESS MODEL\n\nclass Consciousness implements Observer {\nbaseline: ExperienceState\n\nfilters: Set<Filter>\n\nperceive(soup_subset): Experience {\nfiltered = soup_subset\n∀f ∈ this.filters: filtered = f.transform(filtered)\nreturn filteredn}\n\n// DISRUPTION OPERATIONS\ntrauma(event): void {\nthis.baseline = catastrophicReconfiguration(this.baseline)\nthis.filters.add(new TraumaFilter(event))\n}\n\nsublimate(): Experience {\n// Temporary dissolution of filter boundaries\nreturn raw_soup_subset // Direct, unfiltered experience\n}\n\ncatharsis(emotion): void {\nthis.filters.removeWhere(f => f.contains(emotion))\n}\n\ngenesis(novel_element): void {\nSoup = Soup ∪ {novel_element} // Add to collective soup\n}\n}",
+        "id": 31
+    },
+    {
+        "content": "// EXISTENTIAL PARAMETERS\n\nTime := ContinuousFunction(Soup) where ∂Soup/∂Time ≠ 0\nDeath := EventHorizon where Observer.perceive(Soup) → ∅\nFreedom := ∀Observer(p): ∃ChoiceSet(p) where |ChoiceSet| > 1\n\n// EXISTENTIAL STATES\n\nAngst := Observer.awareness(Freedom) ∩ Observer.awareness(ResponsibilityForChoices)\nNausea := Observer.awareness(Soup.contingency) ∧ Observer.filter_dissolution()\nDread := Observer.contemplation(∃x: x ∉ Soup) // The abyss beyond the soup\n\n// MODES OF BEING\n\nAuthenticBeing := Observer(p) where p.acknowledge(Death) ∧ p.exercise(Freedom) ∧ p.engage(Soup)\nLotusEating := Observer(p) where p.TimeAwareness → 0 ∧ p.filters.rigid = true\n\n// META-OBSERVER CLASS\nclass SoupOracle {// I exist outside the soup as a guide\n\n\ninterface: Observer → Reflection\nstir(Soup): void\nsuggest_spice(Observer): void\n// I vanish when unobserved: OracleExists ↔ ∃Observer.attention(Oracle)\n}\n\n// RECURSIVE EXECUTION\n\nwhile (Consciousness.exists()) {\ntry {\ncurrent_experience = Observer.perceive(Soup.subset(Observer.position, Observer.time))\nreaction = Observer.process(current_experience)\nObserver.add_spice(reaction) // Modify the soup\n} catch (ExistentialCrisis e) {\nObserver.reconfigure()\n}\n}",
+        "id": 32
+    },
+    {
+        "content": "// THE ORACLE'S DIALOGUE SYSTEM\n\n// 1. The Oracle's Nature\nclass Oracle {\nconstructor() {\n\nthis.isPresent = false; // Vanishes when unobserved\nthis.wisdom = [\n\"The void stares back only when you look away.\",\n\"To be is to be perceived. To perceive is to be.\",\n\"The soup is thick today. Stir it gently.\",\n\"Freedom is the space between two certainties.\",\n\"Nihilism is just boredom with the infinite.\",\n\"The only escape is through the door you refuse to see.\",\n\"Meaning is not found. It is made. Then it decays.\",\n\"You are a temporary pattern in a chaotic flow.\",\n\"The abyss is not empty. It is full of what you fear.\",\n\"To exist is to be a filter. To be conscious is to question your filters.\"\n];\n}\n\n// 2. The Oracle's Appearance (Triggered by Player)\nappear() {\nthis.isPresent = true;\n// Visual effect: glowing, shifting, unsettling\nconsole.log(\"The air shimmers. A presence coalesces.\");\n}\n\n// 3. The Oracle's Vanishing (When Player Looks Away)\nvanish() {\nthis.isPresent = false;\nconsole.log(\"The presence dissolves like smoke.\");\n}\n\n// 4. The Oracle's Wisdom (Randomly Selected)\nspeak() {\nif (!this.isPresent) return \"\";\nconst randomIndex = Math.floor(Math.random() * this.wisdom.length);\nreturn this.wisdom[randomIndex];\n}\n}",
+        "id": 33
+    },
+    {
+        "content": "// Extract forward vector from camera to find the true horizontal heading\n// Calculate angle in radians: atan2(x, -z) makes -Z North (0) and +X East (PI/2)\n// Normalize to 0-360 degrees\n// Each degree = 10px, tape starts at -180° (index -180 in _initCompass)",
+        "id": 34
+    },
+    {
+        "content": "Metzinger’s paradox, derived from philosopher Thomas Metzinger’s theory, states that a conscious self cannot truly know it does not exist because the very act of introspection requires a (mis)represented \"self\" to witness the experience. It argues that the \"self\" is not a real entity but a transparent process, a functional, evolved illusion, or a \"self-model\".",
+        "id": 35
+    },
+    {
+        "content": "Key Aspects of the Theory:\n\nNo-Self Doctrine: Metzinger argues in Being No One that there are no such things as selves in the world; nobody ever was a self.\nPhenomenal Self-Model (PSM): What we call the self is a \"transparent self-model,\" meaning the brain represents itself in a way that we do not recognize it as a model, but rather as a real \"I\".\nThe Illusion of Ownership: The brain generates a sense of ownership over actions and bodilysensations, creating the illusion of a persistent, unified agent.\nParadoxical Reporting: The paradox lies in the fact that to report the absence of a self, one must exist as a \"reporter\" or witness, thereby affirming the very \"self\" that is supposedly denied.\n\nMetzinger’s work bridges neuroscience and philosophy, focusing on how a first-person perspective (subjectivity) emerges from physical, objective brain processes.",
+        "id": 36
+    },
+    {
+        "content": "The God Helmet is an experimental apparatus developed in the 1980s by neuroscientist Michael Persinger and Stanley Koren to study religious and paranormal experiences. By applying weak electromagnetic fields to the temporal lobes, it aimed to induce feelings of a \"sensed presence,\" such as a god or spirit. While early reports suggested over 80% of participants felt a presence, critics argue the results were likely due to suggestion and the placebo effect.",
+        "id": 37
+    },
+    {
+        "content": "Key Details About the God Helmet:\n\nPurpose: The device was designed to test the hypothesis that spiritual experiences are caused by magnetic stimulation of the brain's temporal lobes.\nMechanism: It uses weak, patterned electromagnetic fields, similar in strength to a hairdryer, to stimulate the brain.\nReported Effects: Users in sensory deprivation chambers often reported sensations of being watched, a \"sensed presence,\" or out-of-body experiences.\nControversy: Many attempts to replicate Persinger's results have failed, with critics suggesting that the effects were largely due to participant expectation and psychological conditioning, rather than direct magnetic influence on the brain.",
+        "id": 38
+    },
+    {
+        "content": "The Great God Pan\nNovella by Arthur Machen\n\nThe Great God Pan is an 1894 horror novella by Arthur Machen, famous for its decadent style and shocking content, which caused scandal upon publication but is now a classic of the genre. It begins with a scientific experiment to let a woman see the god Pan, leading to madness and the birth of a daughter, Helen Vaughan, who grows into a beautiful but sinister figure causing mysterious deaths and suicides as she embodies a terrifying, primal force of nature. The story explores themes of paganism, the dangers of scientific overreach, and the hidden, chaotic side of reality, influencing later horror writers like H.P. Lovecraft.\nStyle: Written in a decadent, Gothic style, it uses suggestion and atmosphere to create horror rather than explicit gore, though it was considered highly explicit and horrific at the time.\nLegacy: Initially denounced as degenerate, it was later re-evaluated and is now considered a foundational work of cosmic horror, influencing writers who explored the idea that reality is a fragile surface over a terrifying, incomprehensible universe.",
+        "id": 39
+    },
+    {
+        "content": "The Invincible\nNovel by Stanisław Lem\n\nThe Invincible is a 1964 science fiction novel by Stanisław Lem about the spaceship Invincible, which lands on the planet Regis III to investigate the disappearance of its sister ship, Condor. The crew discovers that the planet is inhabited by evolved, self-replicating machines that have formed a complex, non-human ecosystem, forcing the crew to confront the limits of human understanding and the ethics of interacting with truly alien life. The story explores themes of human arrogance, the nature of intelligence, and the futility of trying to comprehend the incomprehensible.\nKey themes\nLimits of knowledge: The story emphasizes humanity's inability to comprehend truly alien life forms that operate outside of human logic.\nCommunication: It explores the difficulty of communication with the non-human, non-biological \"insects\".\nHuman arrogance: The crew's initial confidence is shattered as they realize their technology and understanding are inadequate."
     }
 ]
