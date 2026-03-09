@@ -10,9 +10,20 @@ async function init() {
     await gameLogic.loadPages();
 
     const playerController = new PlayerController(sceneManager.camera, sceneManager.renderer.domElement);
+    playerController.enabled = false; // Disable initially for welcome screen
     sceneManager.setPlayerController(playerController);
 
     sceneManager.setupWorkstations(gameLogic);
+
+    // --- Welcome Screen Logic ---
+    const welcomeOverlay = document.getElementById('welcome-overlay');
+    const startButton = document.getElementById('start-game');
+
+    startButton.addEventListener('click', () => {
+        welcomeOverlay.classList.add('hidden');
+        playerController.enabled = true;
+        sceneManager.canvas.requestPointerLock();
+    });
 
     // Wait for models to be ready before rendering
     await Promise.all([
